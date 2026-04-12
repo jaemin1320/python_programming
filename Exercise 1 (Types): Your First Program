@@ -1,3 +1,9 @@
-# Exercise 1 (Types): Your First Program, 고재민, 2025192034
+# 2주차 과제(Types)
+# 고재민, 2025192034
+
+# Exercise 1 (Types): Your First Program
 print("Hello, world!")
+
+# Exercise 2 (Types): Get the object type, 고재민, 2025192034
+type(12.0)
 
