@@ -1,0 +1,11 @@
+# 6주차 과제(Functions)
+# 고재민, 2025192034
+
+def div(a, b):
+    return(a/b)
+
+# yes
+con(2, 2)
+
+# yes
+con(['a', 1], ['b', 1])
