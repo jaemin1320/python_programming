@@ -1,0 +1,5 @@
+# Exercise 3 (Types): Types
+# 고재민, 2025192034
+
+type(6/2)
+type(6//2)
