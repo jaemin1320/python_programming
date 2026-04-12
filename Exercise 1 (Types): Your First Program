@@ -7,3 +7,8 @@ print("Hello, world!")
 # Exercise 2 (Types): Get the object type, 고재민, 2025192034
 type(12.0)
 
+# Exercise 3 (Types): Types
+
+type(6/2)
+type(6//2)
+
