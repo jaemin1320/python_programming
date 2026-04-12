@@ -1,0 +1,14 @@
+# 2주차 과제(Strings)
+# 고재민, 2025192034
+
+# Exercise Strings 1
+
+'1'
+'2'
+'12'
+print(D[0:3])
+print(E[::2])
+print("WW")
+F.upper()
+G.find("snow")
+G.replace("Mary", "Bob")
