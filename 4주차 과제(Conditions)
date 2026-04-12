@@ -1,0 +1,17 @@
+# 4주차 과제(Conditions)
+# 고재민, 2025192034
+
+rating = 8.5
+if rating > 8:
+    print ("This album is Amazing!")
+
+rating = 8.5
+if rating > 8:
+    print ("this album is amazing")
+else:
+    print ("this album is ok")
+
+album_year = 1979
+
+if album_year < 1980 or album_year == 1991 or album_year == 1993:
+    print ("this album came out already")
