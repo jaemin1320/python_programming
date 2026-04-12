@@ -8,7 +8,18 @@ print("Hello, world!")
 type(12.0)
 
 # Exercise 3 (Types): Types
-
 type(6/2)
 type(6//2)
 
+# Exercise 4 (Types): Expression
+160/60
+
+Exercise 5 (Types): Expression and Variables in Python
+x=3+2*2
+x
+
+y=(3++2)*2
+y
+
+z=x+y
+z
