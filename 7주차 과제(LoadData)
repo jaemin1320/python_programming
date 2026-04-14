@@ -1,0 +1,22 @@
+# 7주차 과제(LoadData)
+# 고재민, 2025192034
+
+q = df[['Rating']]
+q
+
+q = df[['Released', 'Artist']]
+q
+
+df.iloc[1, 2]
+
+
+
+
+
+
+
+
+
+
+
+
