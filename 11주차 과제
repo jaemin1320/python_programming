@@ -1,28 +1,267 @@
+
+
 import numpy as np
 
-a = np.array([[1, 2, 3],
-              [4, 5, 6]])
-a.shape
+def print_markdown_header(title):
+    print("\n" + "="*80)
+    print(f" ■ {title}")
+    print("="*80)
 
+# ------------------------------------------------------------------------------
+# 1. How to import NumPy & Creating a basic array
+# ------------------------------------------------------------------------------
+print_markdown_header("1. How to import NumPy & Creating a basic array")
 a = np.array([1, 2, 3, 4, 5, 6])
-a
+print("np.array([1, 2, 3, 4, 5, 6]) 결과:\n", a)
 
-a[0]
+# np.zeros(), np.ones(), np.empty(), np.arange(), np.linspace()
+print("\n[기본 배열 생성 함수들]")
+print("np.zeros(2):\n", np.zeros(2))
+print("np.ones(2):\n", np.ones(2))
+
+# empty 배열은 메모리 상태에 따라 임의의 값이 들어갑니다.
+print("np.empty(2):\n", np.empty(2)) 
+print("np.arange(4):\n", np.arange(4))
+print("np.arange(2, 9, 2):\n", np.arange(2, 9, 2))
+print("np.linspace(0, 10, num=5):\n", np.linspace(0, 10, num=5))
+
+# 데이터 타입 지정 (Specifying your data type)
+x = np.ones(2, dtype=np.int64)
+print("\ndtype을 int64로 지정한 np.ones(2):\n", x, " | dtype:", x.dtype)
 
 
-a[0] = 10
-a
+# ------------------------------------------------------------------------------
+# 2. Adding, removing, and sorting elements
+# ------------------------------------------------------------------------------
+print_markdown_header("2. Adding, removing, and sorting elements")
+arr = np.array([2, 1, 5, 3, 7, 4, 6, 8])
+print("원본 배열:\n", arr)
+print("np.sort(arr) 정렬 결과:\n", np.sort(arr))
 
-a[:3]
+# np.concatenate() 배열 결합
+a = np.array([1, 2, 3, 4])
+b = np.array([5, 6, 7, 8])
+print("\na와 b 결합:\n", np.concatenate((a, b)))
 
-b = a[3:]
-b
-b[0] = 40
-a
+# 2D 배열 결합 예제
+x = np.array([[1, 2], [3, 4]])
+y = np.array([[5, 6]])
+print("\n2D 배열 x와 y를 axis=0 기준으로 결합:\n", np.concatenate((x, y), axis=0))
 
+
+# ------------------------------------------------------------------------------
+# 3. How do you know the shape and size of an array?
+# ------------------------------------------------------------------------------
+print_markdown_header("3. How do you know the shape and size of an array?")
+array_example = np.array([[[0, 1, 2, 3],
+                           [4, 5, 6, 7]],
+                          [[0, 1, 2, 3],
+                           [4, 5, 6, 7]],
+                          [[0, 1, 2, 3],
+                           [4, 5, 6, 7]]])
+
+print("배열의 차원 (ndim):", array_example.ndim)
+print("배열의 총 요소 개수 (size):", array_example.size)
+print("배열의 형태 (shape):", array_example.shape)
+
+
+# ------------------------------------------------------------------------------
+# 4. Can you reshape an array?
+# ------------------------------------------------------------------------------
+print_markdown_header("4. Can you reshape an array? (Reshape)")
+a = np.arange(6)
+print("원본 1D 배열 a:", a)
+
+b = a.reshape(3, 2)
+print("\n3x2로 변형된 배열 b:\n", b)
+
+c = np.reshape(a, shape=(1, 6), order='C')
+print("\n옵션을 사용해 행벡터 형태로 변형된 배열 c:\n", c)
+
+
+# ------------------------------------------------------------------------------
+# 5. How to convert a 1D array into a 2D array (Add a new axis)
+# ------------------------------------------------------------------------------
+print_markdown_header("5. How to convert a 1D array into a 2D array (np.newaxis, np.expand_dims)")
+a = np.array([1, 2, 3, 4, 5, 6])
+print("원본 1D 배열 shape:", a.shape)
+
+# np.newaxis를 활용한 차원 확장
+row_vector = a[np.newaxis, :]
+print("\n[np.newaxis] Row Vector shape:", row_vector.shape)
+col_vector = a[:, np.newaxis]
+print("[np.newaxis] Column Vector shape:\n", col_vector.shape)
+
+# np.expand_dims를 활용한 차원 확장
+b = np.expand_dims(a, axis=1)
+print("\n[np.expand_dims] axis=1 확장 b shape:", b.shape)
+c = np.expand_dims(a, axis=0)
+print("[np.expand_dims] axis=0 확장 c shape:", c.shape)
+
+
+# ------------------------------------------------------------------------------
+# 6. Indexing and slicing
+# ------------------------------------------------------------------------------
+print_markdown_header("6. Indexing and slicing")
+data = np.array([1, 2, 3])
+
+print("data[1]:", data[1])
+print("data[0:2]:", data[0:2])
+print("data[1:]:", data[1:])
+print("data[-2:]:", data[-2:])
+
+# 2D 배열 조건부 슬라이싱 및 브로드캐스팅 시각화 데이터 준비
 a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
-a
+print("\n2D 배열 a:\n", a)
+print("조건 검색 a[a < 5]:", a[a < 5])
 
-a[1, 3]
+# 불리언 마스킹 (Boolean Indexing)
+five_up = (a >= 5)
+print("\n5 이상인 조건 불리언 마스크:\n", five_up)
+print("마스크를 적용한 실제 값 추출:\n", a[five_up])
+
+# 복합 조건 검색 (&, |)
+divisible_by_2 = a[a % 2 == 0]
+print("\n2의 배수 추출:", divisible_by_2)
+c_cond = a[(a > 2) & (a < 11)]
+print("2 초과 11 미만 값 추출:", c_cond)
+
+# np.nonzero() 사용하기
+b_nonzero = np.nonzero(a < 5)
+print("\n[np.nonzero] 5보다 작은 요소의 인덱스 위치 (행, 열 배열):\n", b_nonzero)
+list_of_coordinates = list(zip(b_nonzero[0], b_nonzero[1]))
+print("좌표 쌍 리스트 변환:")
+for coord in list_of_coordinates:
+    print(f" - 위치 (행, 열): {coord}")
 
 
+# ------------------------------------------------------------------------------
+# 7. Creating an array from existing data
+# ------------------------------------------------------------------------------
+print_markdown_header("7. Creating an array from existing data (vstack, hstack, hsplit, copy)")
+a = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+arr1 = a[3:8]
+print("슬라이싱 추출 arr1:", arr1)
+
+# vstack & hstack
+a1 = np.array([[1, 1], [2, 2]])
+a2 = np.array([[3, 3], [4, 4]])
+print("\n수직으로 쌓기 (vstack):\n", np.vstack((a1, a2)))
+print("수평으로 쌓기 (hstack):\n", np.hstack((a1, a2)))
+
+# np.hsplit 배열 분할
+x = np.arange(1, 25).reshape(2, 12)
+print("\n원본 분할용 배열 x:\n", x)
+print("\nnp.hsplit(x, 3)으로 3등분 분할 결과:")
+for idx, split_arr in enumerate(np.hsplit(x, 3)):
+    print(f" - 분할 배열 {idx}:\n", split_arr)
+
+# 얕은 복사(View)와 깊은 복사(Copy)의 차이 증명
+print("\n[View vs Copy 실습]")
+a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+b1 = a[0, :]
+b1[0] = 99  # View 데이터 변경
+print("b1(View)의 첫 요소를 99로 바꾼 후 원본 a의 상태 (함께 바뀜):\n", a)
+
+b2 = a.copy()
+b2[0, 0] = 1111 # Copy 데이터 변경
+print("b2(독립 사본)의 첫 요소를 1111로 바꾼 후 원본 a의 상태 (영향 없음):\n", a)
+
+
+# ------------------------------------------------------------------------------
+# 8. Basic array operations
+# ------------------------------------------------------------------------------
+print_markdown_header("8. Basic array operations")
+data = np.array([1, 2])
+ones = np.ones(2, dtype=int)
+
+print("배열 요소별 덧셈 (+):", data + ones)
+print("배열 요소별 뺄셈 (-):", data - ones)
+print("배열 요소별 곱셈 (*):", data * data)
+print("배열 요소별 나눗셈 (/):", data / data)
+
+# 배열의 집계 연산 (sum)
+a = np.array([1, 2, 3, 4])
+print("\na.sum() 결과:", a.sum())
+
+# 2D 배열의 축(axis)별 집계 연산
+b = np.array([[1, 1], [2, 2]])
+print("\n2D 배열 b:\n", b)
+print("b.sum(axis=0) [열 기준 합]:", b.sum(axis=0))
+print("b.sum(axis=1) [행 기준 합]:", b.sum(axis=1))
+
+
+# ------------------------------------------------------------------------------
+# 9. Broadcasting
+# ------------------------------------------------------------------------------
+print_markdown_header("9. Broadcasting")
+data = np.array([1.0, 2.0])
+print("data * 1.6 브로드캐스팅 결과:", data * 1.6)
+
+
+# ------------------------------------------------------------------------------
+# 10. More useful array operations
+# ------------------------------------------------------------------------------
+print_markdown_header("10. More useful array operations (data.max, min, std 등)")
+data = np.array([1, 2, 3])
+print("data.max():", data.max())
+print("data.min():", data.min())
+print("data.sum():", data.sum())
+
+
+# ------------------------------------------------------------------------------
+# 11. Matrices
+# ------------------------------------------------------------------------------
+print_markdown_header("11. Matrices (2D Array Operations)")
+data = np.array([[1, 2], [3, 4], [5, 6]])
+print("data matrix:\n", data)
+
+# 인덱싱 및 슬라이싱
+print("\ndata[0, 1]:", data[0, 1])
+print("data[1:3]:\n", data[1:3])
+print("data[0:2, 0]:", data[0:2, 0])
+
+# 행렬 집계 (max, min, sum)
+print("\ndata.max():", data.max())
+print("data.min():", data.min())
+print("data.sum():", data.sum())
+
+# 축별 집계 적용
+print("data.max(axis=0) [각 열의 최댓값]:", data.max(axis=0))
+print("data.max(axis=1) [각 행의 최댓값]:", data.max(axis=1))
+
+# 행렬 간 사칙연산 및 브로드캐스팅
+data = np.array([[1, 2], [3, 4]])
+ones = np.array([[1, 1], [1, 1]])
+print("\ndata + ones 행렬 합:\n", data + ones)
+
+data = np.array([[1, 2], [3, 4]])
+ones_row = np.array([[1, 1]])
+print("data + ones_row 행렬 브로드캐스팅 합:\n", data + ones_row)
+
+
+# ------------------------------------------------------------------------------
+# 12. Reshaping and flattening multidimensional arrays
+# ------------------------------------------------------------------------------
+print_markdown_header("12. Reshaping and flattening multidimensional arrays (마지막 실습)")
+x = np.array([[1 , 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+print("원본 2D 행렬 x:\n", x)
+
+# .flatten()과 .ravel() 평탄화 비교 예제
+print("\nx.flatten() 수행 결과 (1D 변환):")
+a1 = x.flatten()
+print(a1)
+a1[0] = 99
+print("flatten 사본 수정 후 원본 x에 미치는 영향 없음 (Deep Copy):")
+print(x)
+
+print("\nx.ravel() 수행 결과 (1D 변환):")
+a2 = x.ravel()
+print(a2)
+a2[0] = 99
+print("ravel 뷰(View) 수정 후 원본 x의 상태 확인 (함께 변경됨, Shallow Copy):")
+print(x)
+
+print("\n" + "="*80)
+print(" 지시하신 범위까지의 모든 NumPy 실습 코드가 완벽하게 연속 실행 완료되었습니다.")
+print("="*80)
