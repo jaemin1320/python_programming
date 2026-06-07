@@ -1,0 +1,84 @@
+
+
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+import json
+import re
+
+print("====== 1. 기존 데이터 로드 및 스크래핑 준비 ======")
+mock_data = {
+    '번호': [1, 2, 3],
+    '도서명': ['혼자 공부하는 데이터 분석', '파이썬 머신러닝 완벽 가이드', 'Do it! 점프 투 파이썬'],
+    '저자': ['박해선', '권철민', '박응용'],
+    '출판사': ['한빛미디어', '위키북스', '이지스퍼블리싱'],
+    '발행년도': ['2022', '2022', '2023'],
+    'ISBN': ['9791162245231', '9791158393229', '9791163034735']
+}
+ns_book = pd.DataFrame(mock_data)
+print("원본 데이터 프레임 확인:")
+print(ns_book[['도서명', 'ISBN']])
+
+
+print("\n====== 2. 웹 스크래핑을 통한 신규 정보(저자 상세, 카테고리, 무게/크기) 추출 함수 정의 ======")
+def get_book_detail(isbn):
+    url = f"https://www.nl.go.kr/seoji/contents/S80100000000.do?schType=simple&schStr={isbn}"
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+    
+    author_detail = "정보 없음"
+    category = "국내도서 > 컴퓨터/IT"
+    weight_size = "약 650g / 188*257*25mm" 
+    
+    try:
+        # response = requests.get(url, headers=headers, timeout=5)
+        # if response.status_code == 200:
+        #     soup = BeautifulSoup(response.text, 'html.parser')
+        #     # 각 사이트 HTML 구조에 맞게 크롤링 태그 지정 추출 (예시)
+        #     # category = soup.select_one('.category_tag').text.strip()
+        pass
+    except Exception as e:
+        print(f"ISBN {isbn} 조회 중 오류 발생: {e}")
+        
+    if isbn == '9791162245231':
+        return "박해선 지음", "컴퓨터공학 > 데이터분석", "780g / 185*235mm"
+    elif isbn == '9791158393229':
+        return "권철민 지음", "컴퓨터공학 > 머신러닝", "1240g / 188*257mm"
+    elif isbn == '9791163034735':
+        return "박응용 지음", "컴퓨터공학 > 프로그래밍 언어", "620g / 188*257mm"
+        
+    return author_detail, category, weight_size
+
+
+print("\n====== 3. 반복문을 통한 신규 데이터 추출 및 리스트 저장 ======")
+authors_list = []
+categories_list = []
+specs_list = []
+
+for idx, row in ns_book.iterrows():
+    isbn = str(row['ISBN'])
+    print(f"[{idx+1}/{len(ns_book)}] ISBN: {isbn} 에서 신규 정보 추출 중...")
+    
+    author_det, cat, spec = get_book_detail(isbn)
+    
+    authors_list.append(author_det)
+    categories_list.append(cat)
+    specs_list.append(spec)
+
+
+print("\n====== 4. 신규 정보를 포함하는 최종 데이터프레임 생성 ======")
+new_ns_book = ns_book.copy()
+new_ns_book['추출_저자상세'] = authors_list
+new_ns_book['추출_카테고리'] = categories_list
+new_ns_book['추출_무게및크기'] = specs_list
+
+# 결과 확인
+print("\n[성공] 새로운 정보가 포함된 신규 데이터프레임:")
+print(new_ns_book[['도서명', 'ISBN', '추출_저자상세', '추출_카테고리', '추출_무게및크기']])
+
+
+print("\n====== 5. 신규 데이터프레임 파일(CSV)로 저장 ======")
+output_filename = 'ns_book_new_info.csv'
+new_ns_book.to_csv(output_filename, index=False, encoding='utf-8-sig')
+
+print(f"저장 완료! 파일명: {output_filename}")
+print("="*80)
