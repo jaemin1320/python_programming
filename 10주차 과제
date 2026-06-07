@@ -1,0 +1,468 @@
+# Python 프로그래밍 10주차 (Class)
+
+## p.11 계산기 더하기 기능
+
+### 코드
+
+```python
+result = 0
+
+def adder(num):
+    global result
+    result += num
+    return result
+
+print(adder(3))
+print(adder(4))
+print(adder(5))
+```
+
+### 실행결과
+
+```text
+3
+7
+12
+```
+
+---
+
+## p.12 계산기가 두 개 필요하다면?
+
+### 코드
+
+```python
+result1 = 0
+result2 = 0
+
+def adder1(num):
+    global result1
+    result1 += num
+    return result1
+
+def adder2(num):
+    global result2
+    result2 += num
+    return result2
+
+print(adder1(3))
+print(adder1(4))
+print(adder2(3))
+print(adder2(7))
+```
+
+### 실행결과
+
+```text
+3
+7
+3
+10
+```
+
+---
+
+## p.13 클래스 사용
+
+### 코드
+
+```python
+class Calculator:
+
+    def __init__(self):
+        self.result = 0
+
+    def adder(self, num):
+        self.result += num
+        return self.result
+
+cal1 = Calculator()
+cal2 = Calculator()
+
+print(cal1.adder(3))
+print(cal1.adder(4))
+
+print(cal2.adder(3))
+print(cal2.adder(7))
+```
+
+### 실행결과
+
+```text
+3
+7
+3
+10
+```
+
+---
+
+## p.15 클래스 변수
+
+### 코드
+
+```python
+class Service:
+    secret = "지구는 4006년에 멸망한다."
+
+an = Service()
+
+print(an.secret)
+```
+
+### 실행결과
+
+```text
+지구는 4006년에 멸망한다.
+```
+
+---
+
+## p.16 클래스 변수 공유
+
+### 코드
+
+```python
+class Service:
+    secret = "지구는 4006년에 멸망한다."
+
+print(Service.secret)
+
+an = Service()
+print(an.secret)
+```
+
+### 실행결과
+
+```text
+지구는 4006년에 멸망한다.
+지구는 4006년에 멸망한다.
+```
+
+---
+
+## p.17 클래스 내부 함수(Method)
+
+### 코드
+
+```python
+class Service:
+
+    def sum(self, a, b):
+        result = a + b
+        print("%s + %s = %s입니다." % (a, b, result))
+
+an = Service()
+
+an.sum(1, 1)
+```
+
+### 실행결과
+
+```text
+1 + 1 = 2입니다.
+```
+
+---
+
+## p.19 객체 변수
+
+### 코드
+
+```python
+class Service:
+
+    secret = "지구는 4006년에 멸망한다."
+
+    def setname(self, name):
+        self.name = name
+
+    def sum(self, a, b):
+        result = a + b
+        print("%s님, %s + %s = %s입니다." %
+              (self.name, a, b, result))
+
+an = Service()
+
+an.setname("박달도사")
+an.sum(1, 1)
+```
+
+### 실행결과
+
+```text
+박달도사님, 1 + 1 = 2입니다.
+```
+
+---
+
+## p.21 __init__ 사용 전 문제
+
+### 코드
+
+```python
+class Service:
+
+    def setname(self, name):
+        self.name = name
+
+    def sum(self, a, b):
+        result = a + b
+        print("%s님, %s + %s = %s입니다." %
+              (self.name, a, b, result))
+
+lee = Service()
+
+lee.sum(1, 1)
+```
+
+### 실행결과
+
+```text
+AttributeError:
+'Service' object has no attribute 'name'
+```
+
+---
+
+## p.22 __init__
+
+### 코드
+
+```python
+class Service:
+
+    secret = "지구는 4006년에 멸망한다."
+
+    def __init__(self, name):
+        self.name = name
+
+    def sum(self, a, b):
+        result = a + b
+        print("%s님, %s + %s = %s입니다." %
+              (self.name, a, b, result))
+
+an = Service("박달도사")
+
+an.sum(1, 1)
+```
+
+### 실행결과
+
+```text
+박달도사님, 1 + 1 = 2입니다.
+```
+
+---
+
+## p.24 FourCal 클래스
+
+### 코드
+
+```python
+class FourCal:
+    pass
+
+a = FourCal()
+
+print(type(a))
+```
+
+### 실행결과
+
+```text
+<class '__main__.FourCal'>
+```
+
+---
+
+## p.25 FourCal 데이터 세팅
+
+### 코드
+
+```python
+class FourCal:
+
+    def setdata(self, first, second):
+        self.first = first
+        self.second = second
+
+a = FourCal()
+
+a.setdata(4, 2)
+
+print(a.first)
+print(a.second)
+```
+
+### 실행결과
+
+```text
+4
+2
+```
+
+---
+
+## p.26 FourCal 더하기
+
+### 코드
+
+```python
+class FourCal:
+
+    def setdata(self, first, second):
+        self.first = first
+        self.second = second
+
+    def sum(self):
+        result = self.first + self.second
+        return result
+
+a = FourCal()
+
+a.setdata(4, 2)
+
+print(a.sum())
+```
+
+### 실행결과
+
+```text
+6
+```
+
+---
+
+## p.27 FourCal 사칙연산
+
+### 코드
+
+```python
+class FourCal:
+
+    def setdata(self, first, second):
+        self.first = first
+        self.second = second
+
+    def sum(self):
+        return self.first + self.second
+
+    def mul(self):
+        return self.first * self.second
+
+    def sub(self):
+        return self.first - self.second
+
+    def div(self):
+        return self.first / self.second
+
+a = FourCal()
+b = FourCal()
+
+a.setdata(4, 2)
+b.setdata(3, 7)
+
+print(a.sum())
+print(a.mul())
+print(a.sub())
+print(a.div())
+
+print(b.sub())
+```
+
+### 실행결과
+
+```text
+6
+8
+2
+2.0
+-4
+```
+
+---
+
+## p.30 주사위 게임 (순차적 프로그래밍)
+
+### 코드
+
+```python
+import random
+
+player1_dice = []
+player2_dice = []
+
+for i in range(3):
+    player1_dice.append(random.randint(1, 6))
+    player2_dice.append(random.randint(1, 6))
+
+print("Player 1 rolled", player1_dice)
+print("Player 2 rolled", player2_dice)
+
+if sum(player1_dice) == sum(player2_dice):
+    print("Draw")
+elif sum(player1_dice) > sum(player2_dice):
+    print("Player 1 wins")
+else:
+    print("Player 2 wins")
+```
+
+### 실행결과 예시
+
+```text
+Player 1 rolled [4, 1, 6]
+Player 2 rolled [2, 5, 3]
+Player 1 wins
+```
+
+---
+
+## p.31 주사위 게임 (OOP)
+
+### 코드
+
+```python
+from random import randint
+
+class Player:
+
+    def __init__(self):
+        self.dice = []
+
+    def roll(self):
+        self.dice = []
+
+        for i in range(3):
+            self.dice.append(randint(1, 6))
+
+    def get_dice(self):
+        return self.dice
+
+
+player1 = Player()
+player2 = Player()
+
+player1.roll()
+player2.roll()
+
+print("Player 1 rolled", player1.get_dice())
+print("Player 2 rolled", player2.get_dice())
+
+if sum(player1.get_dice()) == sum(player2.get_dice()):
+    print("Draw")
+elif sum(player1.get_dice()) > sum(player2.get_dice()):
+    print("Player 1 wins")
+else:
+    print("Player 2 wins")
+```
+
+### 실행결과 예시
+
+```text
+Player 1 rolled [6, 2, 4]
+Player 2 rolled [1, 3, 5]
+Player 1 wins
+```
+
+---
