@@ -1,1 +1,380 @@
-ㅇㄴ
+# 9주차 과제(WriteFile)
+# 고재민, 2025192034
+
+
+## p.4 List 만들기
+
+### 코드
+```python
+number_list = []
+number_list.append(1)
+number_list.append(2)
+number_list.append(3)
+number_list.append(4)
+number_list.append(5)
+print(number_list)
+
+number_list = []
+for number in range(1, 6):
+    number_list.append(number)
+print(number_list)
+
+number_list = list(range(1, 6))
+print(number_list)
+```
+
+### 실행결과
+```text
+[1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5]
+```
+
+---
+
+## p.5 List Comprehension
+
+### 코드
+```python
+number_list = [number for number in range(1, 6)]
+print(number_list)
+
+number_list = [number - 1 for number in range(1, 6)]
+print(number_list)
+
+a_list = [number for number in range(1, 6) if number % 2 == 1]
+print(a_list)
+```
+
+### 실행결과
+```text
+[1, 2, 3, 4, 5]
+[0, 1, 2, 3, 4]
+[1, 3, 5]
+```
+
+---
+
+## p.6 for문 비교
+
+### 코드
+```python
+a_list = [number for number in range(1, 6) if number % 2 == 1]
+print(a_list)
+
+a_list = []
+for number in range(1, 6):
+    if number % 2 == 1:
+        a_list.append(number)
+
+print(a_list)
+```
+
+### 실행결과
+```text
+[1, 3, 5]
+[1, 3, 5]
+```
+
+---
+
+## p.7 List Comprehension 예제
+
+### 코드
+```python
+sentence = ['I', 'Love', 'Python', 'Soooooo', 'MUCH!!!']
+
+print([word.lower() for word in sentence])
+print([word for word in sentence if len(word) > 6])
+print([(x, x**2, x**3) for x in range(10)])
+```
+
+### 실행결과
+```text
+['i', 'love', 'python', 'soooooo', 'much!!!']
+['Soooooo', 'MUCH!!!']
+[(0, 0, 0), (1, 1, 1), (2, 4, 8), (3, 9, 27), (4, 16, 64), (5, 25, 125), (6, 36, 216), (7, 49, 343), (8, 64, 512), (9, 81, 729)]
+```
+
+---
+
+## p.8 두 개의 for문
+
+### 코드
+```python
+rows = range(1, 4)
+cols = range(1, 3)
+
+for row in rows:
+    for col in cols:
+        print(row, col)
+
+cells = [(row, col) for row in rows for col in cols]
+print(cells)
+
+for cell in cells:
+    print(cell)
+
+print([(i, j) for i in range(5) for j in range(i)])
+```
+
+### 실행결과
+```text
+1 1
+1 2
+2 1
+2 2
+3 1
+3 2
+
+[(1, 1), (1, 2), (2, 1), (2, 2), (3, 1), (3, 2)]
+
+(1, 1)
+(1, 2)
+(2, 1)
+(2, 2)
+(3, 1)
+(3, 2)
+
+[(1, 0), (2, 0), (2, 1), (3, 0), (3, 1), (3, 2), (4, 0), (4, 1), (4, 2), (4, 3)]
+```
+
+---
+
+## p.9 ~ p.10 Dictionary Comprehension
+
+### 코드
+```python
+word = "letters"
+
+letter_counts = {letter: word.count(letter) for letter in word}
+print(letter_counts)
+
+letter_counts = {letter: word.count(letter) for letter in set(word)}
+print(letter_counts)
+```
+
+### 실행결과
+```text
+{'l': 1, 'e': 2, 't': 2, 'r': 1, 's': 1}
+{'t': 2, 'l': 1, 'r': 1, 's': 1, 'e': 2}
+```
+
+---
+
+## p.11 Set Comprehension
+
+### 코드
+```python
+a_set = {number for number in range(1, 6) if number % 3 == 1}
+print(a_set)
+```
+
+### 실행결과
+```text
+{1, 4}
+```
+
+---
+
+## p.12 Comprehension 추가 예제
+
+### 코드
+```python
+d = {'a': 1, 'b': 2, 'c': 3}
+print({v: k for k, v in d.items()})
+
+def is_palindrome(word):
+    return word == word[::-1]
+
+hamlet = ['level', 'python', 'radar', 'hello']
+
+print({word for word in hamlet if is_palindrome(word)})
+```
+
+### 실행결과
+```text
+{1: 'a', 2: 'b', 3: 'c'}
+{'level', 'radar'}
+```
+
+---
+
+## p.14~15 함수 기본
+
+### 코드
+```python
+def add(a, b):
+    return a + b
+
+result = add(3, 5)
+print(result)
+```
+
+### 실행결과
+```text
+8
+```
+
+---
+
+## p.16 zip()
+
+### 코드
+```python
+days = ['Monday', 'Tuesday', 'Wednesday']
+fruits = ['banana', 'orange', 'peach']
+drinks = ['coffee', 'tea', 'beer']
+desserts = ['tiramisu', 'ice cream', 'pie', 'pudding']
+
+for day, fruit, drink, dessert in zip(days, fruits, drinks, desserts):
+    print(day, ": drink", drink, "- eat", fruit, "- enjoy", dessert)
+```
+
+### 실행결과
+```text
+Monday : drink coffee - eat banana - enjoy tiramisu
+Tuesday : drink tea - eat orange - enjoy ice cream
+Wednesday : drink beer - eat peach - enjoy pie
+```
+
+---
+
+## p.17 zip() 사전 만들기
+
+### 코드
+```python
+english = ('Monday', 'Tuesday', 'Wednesday')
+french = ('Lundi', 'Mardi', 'Mercredi')
+
+print(list(zip(english, french)))
+print(dict(zip(english, french)))
+```
+
+### 실행결과
+```text
+[('Monday', 'Lundi'), ('Tuesday', 'Mardi'), ('Wednesday', 'Mercredi')]
+{'Monday': 'Lundi', 'Tuesday': 'Mardi', 'Wednesday': 'Mercredi'}
+```
+
+---
+
+## p.18 위치 인자
+
+### 코드
+```python
+def menu(wine, entree, dessert):
+    return {'wine': wine, 'entree': entree, 'dessert': dessert}
+
+print(menu('chardonnay', 'chicken', 'cake'))
+```
+
+### 실행결과
+```text
+{'wine': 'chardonnay', 'entree': 'chicken', 'dessert': 'cake'}
+```
+
+---
+
+## p.19 키워드 인자
+
+### 코드
+```python
+def menu(wine, entree, dessert):
+    return {'wine': wine, 'entree': entree, 'dessert': dessert}
+
+print(menu(entree='beef', dessert='bagel', wine='bordeaux'))
+print(menu('frontenac', dessert='flan', entree='fish'))
+```
+
+### 실행결과
+```text
+{'wine': 'bordeaux', 'entree': 'beef', 'dessert': 'bagel'}
+{'wine': 'frontenac', 'entree': 'fish', 'dessert': 'flan'}
+```
+
+---
+
+## p.20 기본 매개변수
+
+### 코드
+```python
+def menu(wine, entree, dessert='pudding'):
+    return {'wine': wine, 'entree': entree, 'dessert': dessert}
+
+print(menu('chardonnay', 'chicken'))
+print(menu('dunkelfelder', 'duck', 'doughnut'))
+```
+
+### 실행결과
+```text
+{'wine': 'chardonnay', 'entree': 'chicken', 'dessert': 'pudding'}
+{'wine': 'dunkelfelder', 'entree': 'duck', 'dessert': 'doughnut'}
+```
+
+---
+
+## p.21 가능한 호출
+
+### 코드
+```python
+def menu(price, wine='chardonnay', entree='chicken', dessert='pudding'):
+    return {'price': price, 'wine': wine, 'entree': entree, 'dessert': dessert}
+
+print(menu(100))
+print(menu(price=100))
+print(menu(price=120, entree='beef'))
+print(menu(dessert='bagel', price=110))
+print(menu('eighty', 'saint-pierre', 'fish'))
+print(menu('hundred', wine='saint-pierre'))
+```
+
+### 실행결과
+```text
+{'price': 100, 'wine': 'chardonnay', 'entree': 'chicken', 'dessert': 'pudding'}
+{'price': 100, 'wine': 'chardonnay', 'entree': 'chicken', 'dessert': 'pudding'}
+{'price': 120, 'wine': 'chardonnay', 'entree': 'beef', 'dessert': 'pudding'}
+{'price': 110, 'wine': 'chardonnay', 'entree': 'chicken', 'dessert': 'bagel'}
+{'price': 'eighty', 'wine': 'saint-pierre', 'entree': 'fish', 'dessert': 'pudding'}
+{'price': 'hundred', 'wine': 'saint-pierre', 'entree': 'chicken', 'dessert': 'pudding'}
+```
+
+---
+
+## p.22 불가능한 호출
+
+### 실행결과
+```text
+TypeError 발생
+(강의자료에서는 오류 예시 설명용)
+```
+
+---
+
+## p.23 ~ p.24 Docstring
+
+### 코드
+```python
+def echo(anything):
+    """
+    echo returns its input argument
+    """
+    return anything
+
+print(echo("Hello Python"))
+
+help(echo)
+```
+
+### 실행결과
+```text
+Hello Python
+
+Help on function echo:
+
+echo(anything)
+    echo returns its input argument
+```
+
+
+
